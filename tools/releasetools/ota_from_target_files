@@ -393,7 +393,7 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #  ts = GetBuildProp("ro.build.date.utc", input_zip)
   #  script.AssertOlderBuild(ts)
 
-  AppendAssertions(script, input_zip)
+  # AppendAssertions(script, input_zip)
   device_specific.FullOTA_Assertions()
   device_specific.FullOTA_InstallBegin()
 
@@ -578,7 +578,7 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
   #  0.1 for unpacking verbatim files, symlinking, and doing the
   #      device-specific commands.
 
-  AppendAssertions(script, target_zip)
+  # AppendAssertions(script, target_zip)
   device_specific.IncrementalOTA_Assertions()
 
   script.Print("Verifying current system...")

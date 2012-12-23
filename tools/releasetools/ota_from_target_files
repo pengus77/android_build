@@ -447,6 +447,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
   if OPTIONS.extra_script is not None:
     script.AppendExtra(OPTIONS.extra_script)
 
+  script.CheckSdcard()
+
   script.UnmountAll()
   script.AddToZip(input_zip, output_zip)
   WriteMetadata(metadata, output_zip)

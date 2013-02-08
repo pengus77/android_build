@@ -70,10 +70,19 @@ endif
 
 TARGET_NO_UNDEFINED_LDFLAGS := -Wl,--no-undefined
 
-TARGET_arm_CFLAGS :=    -O2 \
+TARGET_COMMON_CFLAGS := -mfloat-abi=softfp \
+                        -mfpu=vfpv3-d16 \
+                        -march=armv7-a \
+                        -mcpu=cortex-a9 \
+                        -mtune=cortex-a9 
+
+TARGET_arm_CFLAGS :=    -O3 \
                         -fomit-frame-pointer \
-                        -fstrict-aliasing    \
-                        -funswitch-loops
+                        -fno-strict-aliasing \
+                        -funswitch-loops \
+                        -fmodulo-sched \
+                        -fmodulo-sched-allow-regmoves \
+			$(TARGET_COMMON_CFLAGS)
 
 # Modules can choose to compile some source as thumb. As
 # non-thumb enabled targets are supported, this is treated
@@ -82,8 +91,12 @@ TARGET_arm_CFLAGS :=    -O2 \
 ifeq ($(ARCH_ARM_HAVE_THUMB_SUPPORT),true)
 TARGET_thumb_CFLAGS :=  -mthumb \
                         -Os \
-                        -fomit-frame-pointer \
-                        -fno-strict-aliasing
+			-fomit-frame-pointer \
+                        -fno-strict-aliasing \
+                        -funswitch-loops \
+                        -fmodulo-sched \
+                        -fmodulo-sched-allow-regmoves \
+			$(TARGET_COMMON_CFLAGS)
 else
 TARGET_thumb_CFLAGS := $(TARGET_arm_CFLAGS)
 endif
